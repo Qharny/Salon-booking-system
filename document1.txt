@@ -1,71 +1,71 @@
-## Salon Booking System Database Design Documentation
+Salon Booking System Database Design Documentation
 
 This document outlines the design of a Salon Booking System database, including tables, relationships, queries, functions, triggers, and a stored procedure.
 
-### Tables
+Tables
 
-* **Customers:** Stores customer information like ID, name, phone number, and email.
-* **Employees:** Stores employee information like ID, name, and position.
-* **Services:** Stores information about services offered, including ID, name, and price.
-* **Appointments:** Stores appointment details like ID, customer ID (foreign key referencing Customers table), employee ID (foreign key referencing Employees table), service ID (foreign key referencing Services table), appointment date and time, and appointment status.
-* **Payments:** Stores payment information for appointments, including ID, appointment ID (foreign key referencing Appointments table), amount paid, and payment date and time.
-* **Inventory:** Stores product information used for appointments, including ID, name, quantity, and price.
+Customers: Stores customer information like ID, name, phone number, and email.
+Employees: Stores employee information like ID, name, and position.
+Services: Stores information about services offered, including ID, name, and price.
+Appointments: Stores appointment details like ID, customer ID (foreign key referencing Customers table), employee ID (foreign key referencing Employees table), service ID (foreign key referencing Services table), appointment date and time, and appointment status.
+Payments: Stores payment information for appointments, including ID, appointment ID (foreign key referencing Appointments table), amount paid, and payment date and time.
+Inventory: Stores product information used for appointments, including ID, name, quantity, and price.
 
-**Rationale:**
+Rational:
 
-* Separate tables for customers, employees, and services improve data organization and reduce redundancy.
-* Foreign keys ensure data integrity between tables.
-* The Appointments table captures core appointment details and references relevant personnel and services.
-* The Payments table tracks financial transactions for appointments.
-* The Inventory table manages product stock used during appointments. 
+Separate tables for customers, employees, and services improve data organization and reduce redundancy.
+ Foreign keys ensure data integrity between tables.
+ The Appointments table captures core appointment details and references relevant personnel and services.
+ The Payments table tracks financial transactions for appointments.
+ The Inventory table manages product stock used during appointments. 
 
 ### Queries
 
-* **Sample Queries:** Several queries are included to retrieve data from different tables, demonstrating data access capabilities.
-* **Employee Availability:** A query retrieves employees available for a specific service during a time slot.
-* **Total Appointment Cost:** A query calculates the total cost for an appointment by summing the prices of included services.
-* **Customer Appointments:** A query retrieves customer names, appointment times, and service names for all appointments.
+ Sample Queries: Several queries are included to retrieve data from different tables, demonstrating data access capabilities.
+ Employee Availability: A query retrieves employees available for a specific service during a time slot.
+ Total Appointment Cost: A query calculates the total cost for an appointment by summing the prices of included services.
+ Customer Appointments: A query retrieves customer names, appointment times, and service names for all appointments.
 
 ### Functions
 
-* **CalculateTotalAppointmentCost:** This function calculates the total cost of an appointment by summing the prices of associated services.
+ CalculateTotalAppointmentCost: This function calculates the total cost of an appointment by summing the prices of associated services.
 
-**Rationale:**
+Rationale:
 
-* Functions encapsulate reusable calculations, improving code maintainability.
-* This function simplifies cost retrieval for appointments.
+ Functions encapsulate reusable calculations, improving code maintainability.
+ This function simplifies cost retrieval for appointments.
 
 ### Triggers
 
-* **UpdateInventoryOnAppointment:** This trigger automatically reduces product quantity in the Inventory table when a new appointment is created, ensuring inventory reflects service usage.
+ UpdateInventoryOnAppointment: This trigger automatically reduces product quantity in the Inventory table when a new appointment is created, ensuring inventory reflects service usage.
 
-**Rationale:**
+Rationale:
 
-* Triggers automate actions based on database events, streamlining inventory management.
-* This trigger maintains accurate inventory levels.
+ Triggers automate actions based on database events, streamlining inventory management.
+ This trigger maintains accurate inventory levels.
 
 ### Stored Procedure
 
-* **BookAppointment:** This stored procedure simplifies booking appointments by handling data insertion into the Appointments table and potentially updating inventory, all within a transaction.
+ BookAppointment: This stored procedure simplifies booking appointments by handling data insertion into the Appointments table and potentially updating inventory, all within a transaction.
 
-**Rationale:**
+Rationale:
 
-* Stored procedures promote code reusability and data integrity by encapsulating complex operations.
-* This procedure streamlines appointment booking and inventory updates.
+ Stored procedures promote code reusability and data integrity by encapsulating complex operations.
+ This procedure streamlines appointment booking and inventory updates.
 
 ### Transactions
 
-* A sample transaction demonstrates booking an appointment, updating inventory, and handling potential errors.
+ A sample transaction demonstrates booking an appointment, updating inventory, and handling potential errors.
 
-**Rationale:**
+Rationale:
 
-* Transactions ensure data consistency by treating a series of database operations as a single unit.
-* This example showcases error handling and transaction management.
+ Transactions ensure data consistency by treating a series of database operations as a single unit.
+ This example showcases error handling and transaction management.
 
 ### Additional Notes
 
-* This design uses reasonable data types for each table column.
-* Comments can be added to the SQL code for better readability and maintainability.
-* Security measures should be implemented to restrict unauthorized data access.
+ This design uses reasonable data types for each table column.
+ Comments can be added to the SQL code for better readability and maintainability.
+ Security measures should be implemented to restrict unauthorized data access.
 
 This documentation provides a foundation for understanding the Salon Booking System database design and its functionalities. You can customize and extend this design based on specific business requirements.
