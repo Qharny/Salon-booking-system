@@ -52,13 +52,17 @@ VALUES
 
 -- Appointments table
 CREATE TABLE Appointments (
-    AppointmentID INT PRIMARY KEY,
+    AppointmentID INT PRIMARY KEY IDENTITY,
     CustomerID INT FOREIGN KEY REFERENCES Customers(CustomerID),
     EmployeeID INT FOREIGN KEY REFERENCES Employees(EmployeeID),
     ServiceID INT FOREIGN KEY REFERENCES Services(ServiceID),
     AppointmentDateTime DATETIME,
     Status NVARCHAR(50)
 );
+
+INSERT INTO Appointments (CustomerID, EmployeeID, ServiceID, AppointmentDateTime, Status)
+VALUES (1, 3, 1, '2024-03-21 10:00:00', 'Pending');
+
 
 -- Payments table
 CREATE TABLE Payments (
@@ -165,7 +169,6 @@ END;
 
 
 -- TRANSACTIONS
-
 BEGIN TRANSACTION;
 
 DECLARE @AppointmentID INT;
@@ -196,5 +199,3 @@ BEGIN
     COMMIT TRANSACTION;
     PRINT 'Appointment booked successfully.';
 END;
-
-
