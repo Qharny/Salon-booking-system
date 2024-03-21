@@ -1,0 +1,43 @@
+**Database Design and Schema**
+
+The database "Salon_Booking_System" is designed to manage a salon's booking system. It consists of the following tables:
+
+1. **Customers**: Stores information about salon customers, including their name, phone number, and email address.
+
+2. **Employees**: Contains data about salon employees, including their name and position.
+
+3. **Services**: Holds details about the services offered by the salon, such as the service name and price.
+
+4. **Appointments**: Records appointments made by customers, including the customer ID, employee ID, service ID, appointment date and time, and status.
+
+5. **Payments**: Stores payment information related to appointments, including the appointment ID, payment amount, and payment date and time.
+
+6. **Inventory**: Manages salon inventory, including product ID, name, quantity available, and price.
+
+**SQL Queries**
+
+The provided SQL queries perform various operations on the database:
+
+1. Selecting data from the Inventory, Payments, Appointments, Customers, Employees, and Services tables.
+2. Finding available employees for a specific service at a given time.
+3. Calculating the total payment for each appointment.
+4. Retrieving customer names, appointment date and time, and service names for appointments.
+5. Creating a function to calculate the total cost of an appointment.
+6. Creating a trigger to update inventory quantity after appointment insertion.
+7. Creating a stored procedure to book an appointment with error handling and transaction management.
+
+**Additional Features**
+
+Additional features to enhance the database system's utility and usability may include:
+
+1. **User Authentication**: Implement a user authentication system to control access to the database, ensuring that only authorized users can interact with it.
+
+2. **Access Control**: Define user roles and permissions to restrict access to sensitive data and functionalities based on user roles.
+
+3. **Data Encryption**: Encrypt sensitive data stored in the database to protect it from unauthorized access or breaches.
+
+4. **Reporting Capabilities**: Develop reporting functionalities to generate various reports based on salon activities, such as sales reports, customer analytics, and inventory summaries.
+
+**Documentation**
+
+It's essential to document the database design, schema, SQL queries, and additional features implemented. Clear explanations and rationales for design decisions and implementation choices should be provided to facilitate understanding and maintenance by other stakeholders or developers. This documentation ensures transparency and facilitates collaboration and future enhancements to the database system.

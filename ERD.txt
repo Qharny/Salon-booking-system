@@ -1,0 +1,15 @@
+Relationships:
+
+Customers can have many Appointments. (One-to-Many)
+Employees can have many Appointments. (One-to-Many)
+Services can be included in many Appointments. (One-to-Many)
+An Appointment is for one Customer. (Many-to-One)
+An Appointment is with one Employee. (Many-to-One)
+An Appointment includes one Service. (Many-to-One)
+A Payment is made for one Appointment. (One-to-One)
+Inventory is a separate entity but can be linked to Services or Appointments if needed (Many-to-Many).
+Notes:
+
+The ERD depicts cardinalities (One-to-One, One-to-Many, Many-to-One, Many-to-Many) between entities.
+Foreign keys enforce referential integrity between tables.
+The optional Inventory entity is not directly related to appointments but can be included for managing salon product stock.
