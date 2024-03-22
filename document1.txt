@@ -19,14 +19,14 @@ Separate tables for customers, employees, and services improve data organization
  The Payments table tracks financial transactions for appointments.
  The Inventory table manages product stock used during appointments. 
 
-### Queries
+⁜ Queries
 
  Sample Queries: Several queries are included to retrieve data from different tables, demonstrating data access capabilities.
  Employee Availability: A query retrieves employees available for a specific service during a time slot.
  Total Appointment Cost: A query calculates the total cost for an appointment by summing the prices of included services.
  Customer Appointments: A query retrieves customer names, appointment times, and service names for all appointments.
 
-### Functions
+⁜ Functions
 
  CalculateTotalAppointmentCost: This function calculates the total cost of an appointment by summing the prices of associated services.
 
@@ -35,7 +35,7 @@ Rationale:
  Functions encapsulate reusable calculations, improving code maintainability.
  This function simplifies cost retrieval for appointments.
 
-### Triggers
+⁜ Triggers
 
  UpdateInventoryOnAppointment: This trigger automatically reduces product quantity in the Inventory table when a new appointment is created, ensuring inventory reflects service usage.
 
@@ -44,7 +44,7 @@ Rationale:
  Triggers automate actions based on database events, streamlining inventory management.
  This trigger maintains accurate inventory levels.
 
-### Stored Procedure
+⁜ Stored Procedure
 
  BookAppointment: This stored procedure simplifies booking appointments by handling data insertion into the Appointments table and potentially updating inventory, all within a transaction.
 
@@ -53,7 +53,7 @@ Rationale:
  Stored procedures promote code reusability and data integrity by encapsulating complex operations.
  This procedure streamlines appointment booking and inventory updates.
 
-### Transactions
+⁜ Transactions
 
  A sample transaction demonstrates booking an appointment, updating inventory, and handling potential errors.
 
@@ -62,7 +62,7 @@ Rationale:
  Transactions ensure data consistency by treating a series of database operations as a single unit.
  This example showcases error handling and transaction management.
 
-### Additional Notes
+⁜ Additional Notes
 
  This design uses reasonable data types for each table column.
  Comments can be added to the SQL code for better readability and maintainability.
