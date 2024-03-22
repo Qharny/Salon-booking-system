@@ -99,6 +99,7 @@ SELECT * FROM Employees;
 SELECT * FROM Services;
 
 
+-- Query
 SELECT e.Name AS EmployeeName
 FROM Employees e
 LEFT JOIN Appointments a ON e.EmployeeID = a.EmployeeID
@@ -116,6 +117,15 @@ FROM Customers c
 INNER JOIN Appointments a ON c.CustomerID = a.CustomerID
 INNER JOIN Services s ON a.ServiceID = s.ServiceID;
 
+UPDATE Customers
+SET Name = 'John Doe Jr.'
+WHERE CustomerID = 1;
+
+DELETE FROM Employees
+WHERE EmployeeID = 5;
+
+ALTER TABLE Services
+ALTER COLUMN Name NVARCHAR(150);
 
 
 
