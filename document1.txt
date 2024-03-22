@@ -2,7 +2,7 @@ Salon Booking System Database Design Documentation
 
 This document outlines the design of a Salon Booking System database, including tables, relationships, queries, functions, triggers, and a stored procedure.
 
-Tables
+⁜ Tables
 
 Customers: Stores customer information like ID, name, phone number, and email.
 Employees: Stores employee information like ID, name, and position.
@@ -11,7 +11,7 @@ Appointments: Stores appointment details like ID, customer ID (foreign key refer
 Payments: Stores payment information for appointments, including ID, appointment ID (foreign key referencing Appointments table), amount paid, and payment date and time.
 Inventory: Stores product information used for appointments, including ID, name, quantity, and price.
 
-Rational:
+⁜ Rational:
 
 Separate tables for customers, employees, and services improve data organization and reduce redundancy.
  Foreign keys ensure data integrity between tables.
