@@ -1,0 +1,27 @@
+This SQL script is meant to book an appointment and update inventory in a salon booking system. Let's break down the steps involved:
+
+1. **BEGIN TRANSACTION**:
+   - This command marks the beginning of a transaction. Transactions help ensure data consistency by allowing a set of operations to be treated as a single unit, which can either be fully completed (committed) or fully rolled back if an error occurs.
+
+2. **DECLARE @AppointmentID INT;**:
+   - This line declares a variable `@AppointmentID` of type INT. This variable will be used to store the identity value of the newly inserted appointment.
+
+3. **INSERT INTO Appointments**:
+   - This SQL statement inserts a new appointment into the 'Appointments' table. It specifies the customer ID, employee ID, service ID, appointment date and time, and sets the status to 'Pending'. This assumes that the values for CustomerID, EmployeeID, and ServiceID are known.
+
+4. **SET @AppointmentID = SCOPE_IDENTITY();**:
+   - This line retrieves the identity value of the newly inserted appointment and assigns it to the `@AppointmentID` variable using the `SCOPE_IDENTITY()` function. This function returns the last identity value generated in the current scope.
+
+5. **UPDATE Inventory**:
+   - This SQL statement decrements the quantity of inventory items based on the service booked. It reduces the quantity by 1 for the product associated with the service ID of the booked appointment (assuming ServiceID 1 represents a "Haircut").
+
+6. **IF @@ERROR <> 0**:
+   - This condition checks if any error occurred during the execution of the previous SQL statements. If an error occurred, the transaction is rolled back to maintain data integrity.
+
+7. **COMMIT TRANSACTION / ROLLBACK TRANSACTION**:
+   - Depending on whether an error occurred, either the transaction is committed (if no error occurred) or rolled back (if an error occurred). Committing the transaction makes all the changes permanent, while rolling back the transaction undoes all the changes made within the transaction.
+
+8. **PRINT 'Appointment booked successfully.' / 'An error occurred. Rolling back transaction.'**:
+   - These statements print a message indicating whether the appointment was successfully booked or if an error occurred and the transaction was rolled back.
+
+In summary, this script ensures that an appointment is booked atomically with the corresponding inventory update, and it handles potential errors gracefully by either committing the transaction or rolling it back.
