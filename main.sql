@@ -99,7 +99,6 @@ SELECT * FROM Employees;
 SELECT * FROM Services;
 
 
--- Query
 SELECT e.Name AS EmployeeName
 FROM Employees e
 LEFT JOIN Appointments a ON e.EmployeeID = a.EmployeeID
@@ -185,7 +184,7 @@ DECLARE @AppointmentID INT;
 
 -- Book the appointment
 INSERT INTO Appointments (CustomerID, EmployeeID, ServiceID, AppointmentDateTime, Status)
-VALUES (1, 3, 1, '2024-03-21 10:00:00', 'Pending'); -- Assuming CustomerID, EmployeeID, and ServiceID are known
+VALUES (1, 3, 1, '2024-03-21 10:00:00', 'Pending');
 
 -- Get the AppointmentID of the newly inserted appointment
 SET @AppointmentID = SCOPE_IDENTITY();
@@ -195,7 +194,7 @@ UPDATE Inventory
 SET Quantity = Quantity - 1
 WHERE ProductID IN (
     SELECT ProductID FROM Services
-    WHERE ServiceID = 1 -- Assuming ServiceID for "Haircut"
+    WHERE ServiceID = 1
 );
 
 -- Check if any error occurred
