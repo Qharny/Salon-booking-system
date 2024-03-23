@@ -23,8 +23,9 @@ SET @hashedPassword = 'HASHED_PASSWORD_VALUE';
 
 INSERT INTO Users (Username, PasswordHash, RoleID)
 VALUES ('admin', @hashedPassword, 1);
+INSERT INTO Users (Username, PasswordHash, RoleID)
+VALUES ('CEO', @hashedPassword, 2);
 
--- Add more users with different roles
 
 -- stored procedure for reporting capabilities
 CREATE PROCEDURE GetAppointmentsByStylist (@StartDate DATETIME, @EndDate DATETIME, @StylistID INT)
@@ -42,3 +43,11 @@ BEGIN
   WHERE a.AppointmentDateTime >= @StartDate AND a.AppointmentDateTime <= @EndDate
   AND a.EmployeeID = @StylistID;
 END;
+
+-- Example of generating a report
+SELECT 
+  DATE(AppointmentDateTime) AS Date,
+  COUNT(*) AS TotalAppointments,
+  SUM(CASE WHEN Status = 'Completed' THEN 1 ELSE 0 END) AS CompletedAppointments
+FROM Appointments
+GROUP BY DATE(AppointmentDateTime);

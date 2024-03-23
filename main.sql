@@ -99,6 +99,7 @@ SELECT * FROM Employees;
 SELECT * FROM Services;
 
 
+
 SELECT e.Name AS EmployeeName
 FROM Employees e
 LEFT JOIN Appointments a ON e.EmployeeID = a.EmployeeID
@@ -162,8 +163,19 @@ BEGIN
 END;
 
 
-
 -- stored procedure
+CREATE PROCEDURE SendEmailNotification
+AS
+BEGIN
+  DECLARE @Body NVARCHAR(MAX);
+  SET @Body = 'Dear Customer, your appointment is scheduled for tomorrow.';
+  
+  EXEC msdb.dbo.sp_send_dbmail
+    @profile_name = 'YourMailProfile',
+    @recipients = 'customer@example.com',
+    @body = @Body,
+    @subject = 'Appointment Reminder';
+END;
 
 CREATE PROCEDURE BookAppointment
     @CustomerID INT,
@@ -175,6 +187,7 @@ BEGIN
     INSERT INTO Appointments (CustomerID, EmployeeID, ServiceID, AppointmentDateTime, Status)
     VALUES (@CustomerID, @EmployeeID, @ServiceID, @AppointmentDateTime, 'Pending');
 END;
+
 
 
 -- TRANSACTIONS
