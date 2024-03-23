@@ -121,11 +121,15 @@ UPDATE Customers
 SET Name = 'John Doe Jr.'
 WHERE CustomerID = 1;
 
+SELECT * FROM Customers;
+
 DELETE FROM Employees
 WHERE EmployeeID = 5;
+SELECT * FROM Employees;
 
 ALTER TABLE Services
 ALTER COLUMN Name NVARCHAR(150);
+SELECT * FROM Services;
 
 
 
