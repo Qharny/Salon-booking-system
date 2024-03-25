@@ -1,53 +1,77 @@
-
 CREATE TABLE Users (
-  UserID INT PRIMARY KEY IDENTITY,
-  Username NVARCHAR(50) UNIQUE,
-  PasswordHash NVARCHAR(255) NOT NULL,
-  RoleID INT FOREIGN KEY REFERENCES Roles(RoleID)
+    UserID INT PRIMARY KEY,
+    Username NVARCHAR(50) UNIQUE,
+    Password NVARCHAR(100) -- You should hash passwords for security
 );
 
+INSERT INTO Users (UserID, Username, Password)
+VALUES 
+(1, 'admin', 'admin_password'),
+(2, 'employee1', 'first_employed'),
+(3, 'employee2', 'second_employed');
 
-CREATE TABLE Roles (
-  RoleID INT PRIMARY KEY IDENTITY,
-  RoleName NVARCHAR(50)
-);
+SELECT * FROM Users;
 
-INSERT INTO Roles (RoleName)
-VALUES ('Admin'), ('Stylist'), ('Receptionist');
+DECLARE @EnteredUsername NVARCHAR(50) = 'admin'; -- Enter the username you want to authenticate
+DECLARE @EnteredPassword NVARCHAR(100) = 'admin_password'; -- Enter the password you want to authenticate
 
-DECLARE @password NVARCHAR(50) = 'password123';
-DECLARE @hashedPassword NVARCHAR(255);
+DECLARE @HashedPassword NVARCHAR(100);
 
--- Simulate password hashing using BCrypt (replace with actual hashing function)
-SET @hashedPassword = 'HASHED_PASSWORD_VALUE';
+-- Retrieve the hashed password for the entered username
+SELECT @HashedPassword = Password
+FROM Users
+WHERE Username = @EnteredUsername;
 
-INSERT INTO Users (Username, PasswordHash, RoleID)
-VALUES ('admin', @hashedPassword, 1);
-INSERT INTO Users (Username, PasswordHash, RoleID)
-VALUES ('CEO', @hashedPassword, 2);
-
-
--- stored procedure for reporting capabilities
-CREATE PROCEDURE GetAppointmentsByStylist (@StartDate DATETIME, @EndDate DATETIME, @StylistID INT)
-AS
+-- Check if the entered password matches the hashed password
+IF @HashedPassword IS NOT NULL AND @HashedPassword = HASHBYTES('SHA2_256', @EnteredPassword)
 BEGIN
-  SELECT 
-    a.AppointmentDateTime,
-    c.Name AS CustomerName,
-    s.Name AS StylistName,
-    ser.Name AS ServiceName
-  FROM Appointments a
-  INNER JOIN Customers c ON a.CustomerID = c.CustomerID
-  INNER JOIN Employees s ON a.EmployeeID = s.EmployeeID
-  INNER JOIN Services ser ON a.ServiceID = ser.ServiceID
-  WHERE a.AppointmentDateTime >= @StartDate AND a.AppointmentDateTime <= @EndDate
-  AND a.EmployeeID = @StylistID;
+    PRINT 'Login successful'; -- Print message indicating successful login
+    -- Proceed with allowing access or executing further actions
+END
+ELSE
+BEGIN
+    PRINT 'Invalid username or password'; -- Print message indicating failed login attempt
+    -- Deny access or take appropriate action for failed login
 END;
 
--- Example of generating a report
-SELECT 
-  DATE(AppointmentDateTime) AS Date,
-  COUNT(*) AS TotalAppointments,
-  SUM(CASE WHEN Status = 'Completed' THEN 1 ELSE 0 END) AS CompletedAppointments
-FROM Appointments
-GROUP BY DATE(AppointmentDateTime);
+
+
+
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY,
+    Username NVARCHAR(50) UNIQUE,
+    Password NVARCHAR(100) -- You should hash passwords for security
+);
+
+INSERT INTO Users (UserID, Username, Password)
+VALUES 
+(1, 'admin', HASHBYTES('SHA2_256', 'admin_password')), -- Hash the password before inserting
+(2, 'employee1', HASHBYTES('SHA2_256', 'first_employed')),
+(3, 'employee2', HASHBYTES('SHA2_256', 'second_employed'));
+
+SELECT * FROM Users;
+
+DECLARE @EnteredUsername NVARCHAR(50) = 'admin'; -- Enter the username you want to authenticate
+DECLARE @EnteredPassword NVARCHAR(100) = 'admin_password'; -- Enter the password you want to authenticate
+
+DECLARE @HashedPassword NVARCHAR(100);
+
+-- Hash the entered password before comparing
+SET @EnteredPassword = CONVERT(NVARCHAR(100), HASHBYTES('SHA2_256', @EnteredPassword), 2);
+
+-- Retrieve the hashed password for the entered username
+SELECT @HashedPassword = Password
+FROM Users
+WHERE Username = @EnteredUsername;
+
+-- Check if the entered password matches the hashed password
+IF @HashedPassword IS NOT NULL AND @HashedPassword = @EnteredPassword
+BEGIN
+    PRINT 'Login successful'; -- Print message indicating successful login
+    -- Proceed with allowing access or executing further actions
+END
+ELSE
+BEGIN
+    PRINT 'Invalid username or password'; -- Print message indicating failed login attempt
+    -- Deny access or take appropriate action for failed login
+END;
